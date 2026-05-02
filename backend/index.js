@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://nature-flow.onrender.com", // hardcode for now
+    origin: "https://nature-flow.vercel.app", // hardcode for now
     credentials: true,
   }),
 );

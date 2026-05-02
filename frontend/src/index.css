@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-sage: #87a38d;
+  --color-slate-blue: #4a6fa5;
+  --color-terracotta: #cc7e61;
+  --color-seafoam: #8ecae6;
+
+  --color-surface: #f7f9f7;
+  --color-surface-muted: #edf1ee;
+  --color-border: #d1dbd3;
+  
+  /* Text */
+  --color-text: #2d3436;
+  --color-text-muted: #636e72;
+
+  /* Accent Mapping */
+  --color-accent: var(--color-slate-blue);
+  --color-accent-light: var(--color-seafoam);
+  --color-action: var(--color-terracotta);
+
+  /* Typography */
+  --font-sans: "Work Sans", sans-serif;
+
+  /* Custom Gradients */
+  --background-image-nature-header: linear-gradient(to right, var(--color-sage), var(--color-slate-blue));
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }

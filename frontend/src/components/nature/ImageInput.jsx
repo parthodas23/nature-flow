@@ -42,13 +42,15 @@ export default function ImageInput() {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" }
+        video: { facingMode: "environment" },
       });
       streamRef.current = stream;
       videoRef.current.srcObject = stream;
       setCamera(true);
     } catch {
-      setError("Camera access denied. Please allow permissions to capture nature.");
+      setError(
+        "Camera access denied. Please allow permissions to capture nature.",
+      );
     }
   };
 
@@ -67,12 +69,18 @@ export default function ImageInput() {
     canvas.height = video.videoHeight;
     canvas.getContext("2d").drawImage(video, 0, 0);
 
-    canvas.toBlob((blob) => {
-      const captured = new File([blob], "capture.jpg", { type: "image/jpeg" });
-      setFile(captured);
-      setPreview(URL.createObjectURL(captured));
-      stopCamera();
-    }, "image/jpeg", 0.92);
+    canvas.toBlob(
+      (blob) => {
+        const captured = new File([blob], "capture.jpg", {
+          type: "image/jpeg",
+        });
+        setFile(captured);
+        setPreview(URL.createObjectURL(captured));
+        stopCamera();
+      },
+      "image/jpeg",
+      0.92,
+    );
   };
 
   const handleSubmit = async () => {
@@ -94,11 +102,14 @@ export default function ImageInput() {
     <div className="max-w-xl mx-auto space-y-12 px-4 pb-20">
       {/* Input Section */}
       <div className="bg-surface border border-border rounded-[2.5rem] p-8 md:p-10 space-y-6 shadow-xl shadow-sage/5 transition-all">
-        
         {/* Header Text */}
         <div className="text-center space-y-2">
-          <h2 className="text-2xl md:text-3xl font-semibold text-text tracking-tight italic">Capture the Wild</h2>
-          <p className="text-sm md:text-base text-text-muted">Document the flora and fauna around you</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-text tracking-tight italic">
+            Capture the Wild
+          </h2>
+          <p className="text-sm md:text-base text-text-muted">
+            Document the flora and fauna around you
+          </p>
         </div>
 
         {/* Mode Toggle */}
@@ -110,9 +121,11 @@ export default function ImageInput() {
                 onClick={() => handleModeSwitch(m)}
                 className={`
                   flex-1 px-6 py-2.5 rounded-full text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300
-                  ${mode === m 
-                    ? "bg-sage text-white shadow-md shadow-sage/20" 
-                    : "text-text-muted hover:text-sage"}
+                  ${
+                    mode === m
+                      ? "bg-sage text-white shadow-md shadow-sage/20"
+                      : "text-text-muted hover:text-sage"
+                  }
                 `}
               >
                 {m === "upload" ? "Gallery" : "Lens"}
@@ -128,8 +141,12 @@ export default function ImageInput() {
               <span className="text-4xl md:text-5xl">🌿</span>
             </div>
             <div className="text-center">
-              <span className="block text-sm md:text-lg font-medium text-text">Choose a photo</span>
-              <span className="text-[10px] md:text-xs text-text-muted uppercase tracking-tighter opacity-70">JPG, PNG, HEIC</span>
+              <span className="block text-sm md:text-lg font-medium text-text">
+                Choose a photo
+              </span>
+              <span className="text-[10px] md:text-xs text-text-muted uppercase tracking-tighter opacity-70">
+                JPG, PNG, HEIC
+              </span>
             </div>
             <input
               type="file"
@@ -156,7 +173,9 @@ export default function ImageInput() {
                   <div className="w-16 h-16 border-2 border-dashed border-white/20 rounded-full animate-spin-slow flex items-center justify-center">
                     <span className="text-2xl">📸</span>
                   </div>
-                  <span className="text-xs font-medium uppercase tracking-widest">Ready to Focus</span>
+                  <span className="text-xs font-medium uppercase tracking-widest">
+                    Ready to Focus
+                  </span>
                 </div>
               )}
             </div>
@@ -193,7 +212,11 @@ export default function ImageInput() {
         {preview && (
           <div className="space-y-4 animate-in fade-in zoom-in duration-500">
             <div className="relative rounded-[2.5rem] overflow-hidden aspect-[4/5] md:aspect-video bg-surface-muted shadow-lg ring-4 ring-sage/10">
-              <img src={preview} alt="preview" className="w-full h-full object-cover" />
+              <img
+                src={preview}
+                alt="preview"
+                className="w-full h-full object-cover"
+              />
               <button
                 onClick={reset}
                 className="absolute top-6 right-6 bg-white/90 backdrop-blur-md text-text text-[10px] font-bold uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-terracotta hover:text-white transition-all shadow-sm"
@@ -237,6 +260,7 @@ export default function ImageInput() {
           <NatureResultCard data={result} />
         </div>
       )}
+      <canvas ref={canvasRef} className="hidden" />
     </div>
   );
 }
